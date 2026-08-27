@@ -33,10 +33,9 @@ A Python-based student management system that stores student information in a CS
 - Functions
 - CRUD Operations
 - File Handling
-- CSV Data Storage
 - Lambda Functions
 
 ## Technologies Used
 
 - Python
-- CSV
+
