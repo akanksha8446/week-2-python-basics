@@ -10,9 +10,11 @@ def add_student():
     roll_number = input("Enter roll number: ")
     name = input("Enter student name: ")
     marks = input("Enter marks: ")
+
     with open(FILE_NAME, "a", newline="") as file:
         writer = csv.writer(file)
         writer.writerow([roll_number, name, marks])
+
     print("Student added successfully!")
 def view_students():
     with open(FILE_NAME, "r", newline="") as file:
@@ -22,9 +24,9 @@ def view_students():
         for student in reader:
             found = True
             print(
-                f"Roll No: {student['Roll Number']} | "
-                f"Name: {student['Name']} | "
-                f"Marks: {student['Marks']}"
+                f"Roll No: {student.get('Roll Number', 'N/A')} | "
+                f"Name: {student.get('Name', 'N/A')} | "
+                f"Marks: {student.get('Marks', 'N/A')}"
             )
         if not found:
             print("No student records found.")
@@ -33,11 +35,11 @@ def search_student():
     with open(FILE_NAME, "r", newline="") as file:
         reader = csv.DictReader(file)
         for student in reader:
-            if student["Roll Number"] == roll_number:
+            if student.get("Roll Number") == roll_number:
                 print("\nStudent Found!")
-                print("Roll Number:", student["Roll Number"])
-                print("Name:", student["Name"])
-                print("Marks:", student["Marks"])
+                print("Roll Number:", student.get("Roll Number"))
+                print("Name:", student.get("Name"))
+                print("Marks:", student.get("Marks"))
                 return
     print("Student not found.")
 def delete_student():
@@ -47,7 +49,7 @@ def delete_student():
     with open(FILE_NAME, "r", newline="") as file:
         reader = csv.DictReader(file)
         for student in reader:
-            if student["Roll Number"] == roll_number:
+            if student.get("Roll Number") == roll_number:
                 found = True
             else:
                 students.append(student)
@@ -81,7 +83,8 @@ while True:
     elif choice == "4":
         delete_student()
     elif choice == "5":
-        print("Thank you for using Student Management System!")
+        print("\nThank you for using Student Management System!")
         break
+
     else:
         print("Invalid choice. Please try again.")
